@@ -8,6 +8,9 @@ __pycache__/
 *.py[cod]
 .ipynb_checkpoints/
 
+# MlFlow
+mlflow.db
+
 # Environments
 .venv/
 venv/
