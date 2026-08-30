@@ -1,7 +1,6 @@
 # Data
 dump/
 mlruns/
-models/
 
 # Python
 __pycache__/
