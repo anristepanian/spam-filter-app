@@ -17,20 +17,20 @@ def route_email(p_spam: float):
     """
     Same threshold applied as planned previously:
      - If model is sure that message is spam less than 10%, message gets directly to Inbox
-     - If model is sure that message is span more that 95%, message gets directly to Spam
-     - If model is sure that message is spam less than 40%, message gets directly to Review folder
+     - If model is sure that message is span more that 85%, message gets directly to Spam
+     - If model is sure that message is spam less than 50%, message gets directly to Review folder
      and being added +1 hour to Review by deadline
-     - If model is sure that message is spam less than 75%, message gets directly to Review folder
+     - If model is sure that message is spam less than 65%, message gets directly to Review folder
      and being added +7 hour to Review by deadline
      - otherwise, message gets to Review folder and being added +24 hours to Review by deadline
     """
     if p_spam < .1:
         return "Inbox", None
-    if p_spam > .95:
+    if p_spam > .85:
         return "Spam", None
-    if p_spam < .45:
+    if p_spam < .5:
         return "Review folder", 1
-    if p_spam < .75:
+    if p_spam < .65:
         return "Review folder", 7
     return "Review folder", 24
 
@@ -44,7 +44,7 @@ def load_model():
 def load_mock_mailbox():
     model = load_model()
     # Loading the test data. As there is no API yet
-    X_test = pd.read_csv("data/processed/X_test.csv")
+    X_test = pd.read_csv("data/processed/X_test_nochi2.csv")
     probs = model.predict_proba(X_test)[:, 1]
 
     # loading the raw messages as X_test has only numerical (vectorized) data
@@ -65,10 +65,10 @@ def load_mock_mailbox():
     """
     bands = [
         (mailbox["p_spam"] < .1, 20), # 14 samples for Inbox
-        ((mailbox["p_spam"] >= .1) & (mailbox["p_spam"] < .4), 5), # 5 samples for Review folder (Likely a customer)
-        ((mailbox["p_spam"] >= .4) & (mailbox["p_spam"] < .75), 5), # 5 samples for Review folder (Genuinely uncertain)
-        ((mailbox["p_spam"] >= .75) & (mailbox["p_spam"] <= .95), 5), # 5 samples for Review folder (Likely Spam)
-        (mailbox["p_spam"] > .95, 10), # 10 Samples for Spam folder
+        ((mailbox["p_spam"] >= .1) & (mailbox["p_spam"] < .5), 5), # 5 samples for Review folder (Likely a customer)
+        ((mailbox["p_spam"] >= .5) & (mailbox["p_spam"] < .65), 5), # 5 samples for Review folder (Genuinely uncertain)
+        ((mailbox["p_spam"] >= .65) & (mailbox["p_spam"] <= .85), 5), # 5 samples for Review folder (Likely Spam)
+        (mailbox["p_spam"] > .85, 10), # 10 Samples for Spam folder
     ]
     # Extract the specified quota from each band, combine them, and shuffle the final inbox
     sample = pd.concat([mailbox[mask].sample(min(n, mask.sum()), random_state=42) for mask, n in bands])
