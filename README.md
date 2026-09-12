@@ -35,10 +35,10 @@ dataset.<br><br>
 
 - [x] Reach 96% F1-score on test data.
 - [x] Implement a comprehensive GUI.
-- [] Implement a CI/CD pipeline.
-- [] Improve Model Architectures: Move beyond linear baselines to fine-tune transformer models, which capture context and subtle spam phrasing much better.
-- [] Diversify Data: Add messages from other sources like live chat or website contact forms, so the model learns how real customers talk across different channels.
-- [] Implement active Learning Loop: Add a feedback feature to the app, so that manual corrections made in the Review folder can be saved to retrain and improve the classifier over time.
+- [ ] Implement a CI/CD pipeline.
+- [ ] Improve Model Architectures: Move beyond linear baselines to fine-tune transformer models, which capture context and subtle spam phrasing much better.
+- [ ] Diversify Data: Add messages from other sources like live chat or website contact forms, so the model learns how real customers talk across different channels.
+- [ ] Implement active Learning Loop: Add a feedback feature to the app, so that manual corrections made in the Review folder can be saved to retrain and improve the classifier over time.
 
 ## Installation
 
@@ -51,15 +51,15 @@ pip install -r requirements.txt
 Start by installing the repository on your local machine.
 > [!IMPORTANT]
 > Since I didn't upload the trained models to GitHub you have to train them locally yourself
+
+> [!WARNING]
+> You have to execute this command from the **_main_** folder
 <br>Run next:
 ```commandline
 ipython
 ```
 > [!NOTE]
 > Now when you entered Ipython, you have to start training the model
-
-> [!WARNING]
-> You have to execute this command from the **_main_** folder
 
 ```commandline
 cd model_training
@@ -75,7 +75,7 @@ streamlit run main.py
 ```
 > [!NOTE]
 > If nothing happened, go to any browser and enter _http://localhost:8501/_ in search
-<br>You should see working app with test data!
+<br>You should see working app with test data!<br>
 <br>![](Abstract/Inbox.png)
 <br>![](Abstract/Review_Folder.png)
 <br>![](Abstract/Spam_Folder.png)
