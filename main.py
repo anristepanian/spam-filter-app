@@ -61,7 +61,7 @@ def load_mock_mailbox():
     """
     Stratified sample, so every folder actually has something in it for the demo.
     Otherwise, a plain random sample would leave the review folder almost empty,
-    since real messages that land between 10% to 95% confidence are naturally rare.
+    since real messages that land between 10% to 85% confidence are naturally rare.
     """
     bands = [
         (mailbox["p_spam"] < .1, 20), # 14 samples for Inbox
